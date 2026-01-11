@@ -1,0 +1,3174 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      cni.projectcalico.org/containerID: 4432c68c4ce1b702ab0bf07d87f630fe2c85066d328b34dd1dee390af003514d
+      cni.projectcalico.org/podIP: 10.244.247.3/32
+      cni.projectcalico.org/podIPs: 10.244.247.3/32
+      hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+      tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generateName: calico-kube-controllers-6958f49f48-
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-kube-controllers
+      k8s-app: calico-kube-controllers
+      pod-template-hash: 6958f49f48
+    name: calico-kube-controllers-6958f49f48-tsw5w
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: calico-kube-controllers-6958f49f48
+      uid: 898ef6a2-952c-4109-9b24-b4ad7e565762
+    resourceVersion: "1682"
+    uid: e764b6c0-1333-40a0-854c-4b507a96810b
+  spec:
+    containers:
+    - env:
+      - name: KUBE_CONTROLLERS_CONFIG_NAME
+        value: default
+      - name: DATASTORE_TYPE
+        value: kubernetes
+      - name: ENABLED_CONTROLLERS
+        value: node
+      - name: FIPS_MODE_ENABLED
+        value: "false"
+      - name: DISABLE_KUBE_CONTROLLERS_CONFIG_API
+        value: "false"
+      - name: KUBERNETES_SERVICE_HOST
+        value: 10.96.0.1
+      - name: KUBERNETES_SERVICE_PORT
+        value: "443"
+      - name: CA_CRT_PATH
+        value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+      image: docker.io/calico/kube-controllers:v3.28.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        exec:
+          command:
+          - /usr/bin/check-status
+          - -l
+        failureThreshold: 6
+        initialDelaySeconds: 10
+        periodSeconds: 60
+        successThreshold: 1
+        timeoutSeconds: 10
+      name: calico-kube-controllers
+      readinessProbe:
+        exec:
+          command:
+          - /usr/bin/check-status
+          - -r
+        failureThreshold: 3
+        periodSeconds: 30
+        successThreshold: 1
+        timeoutSeconds: 10
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        runAsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 999
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        subPath: ca-bundle.crt
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-jfkfr
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: sam-test-cluster-control-plane
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 2000000000
+    priorityClassName: system-cluster-critical
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: calico-kube-controllers
+    serviceAccountName: calico-kube-controllers
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: tigera-ca-bundle
+      name: tigera-ca-bundle
+    - name: kube-api-access-jfkfr
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:29Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:12Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:29Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:29Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:12Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://9f0963f62777112ce18366a5c195cfbe4e0696e5241a2b0396df2197d06c67ef
+      image: docker.io/calico/kube-controllers:v3.28.0
+      imageID: docker.io/calico/kube-controllers@sha256:8f04e4772a2b3fa752bc7fb98cc89c7fa0ab88a341115ee8c5b6faa4180053fd
+      lastState: {}
+      name: calico-kube-controllers
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:28Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 999
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-jfkfr
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 172.18.0.3
+    hostIPs:
+    - ip: 172.18.0.3
+    observedGeneration: 1
+    phase: Running
+    podIP: 10.244.247.3
+    podIPs:
+    - ip: 10.244.247.3
+    qosClass: BestEffort
+    startTime: "2026-01-10T22:53:12Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      hash.operator.tigera.io/cni-config: 0a4321e1231844b30534560ce90e56b5ba0a02a1
+      hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+      tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+    creationTimestamp: "2026-01-10T22:53:03Z"
+    generateName: calico-node-
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-node
+      controller-revision-hash: 774cd5b999
+      k8s-app: calico-node
+      pod-template-generation: "2"
+    name: calico-node-wmnfl
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DaemonSet
+      name: calico-node
+      uid: 2b61498b-9b4b-451b-9ba7-d1e97c85e827
+    resourceVersion: "1750"
+    uid: 3e446635-92c5-4a68-8c2a-f7ada2ccd609
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchFields:
+            - key: metadata.name
+              operator: In
+              values:
+              - sam-test-cluster-control-plane
+    containers:
+    - env:
+      - name: DATASTORE_TYPE
+        value: kubernetes
+      - name: WAIT_FOR_DATASTORE
+        value: "true"
+      - name: CLUSTER_TYPE
+        value: k8s,operator,bgp
+      - name: CALICO_DISABLE_FILE_LOGGING
+        value: "false"
+      - name: FELIX_DEFAULTENDPOINTTOHOSTACTION
+        value: ACCEPT
+      - name: FELIX_HEALTHENABLED
+        value: "true"
+      - name: FELIX_HEALTHPORT
+        value: "9099"
+      - name: NODENAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      - name: NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: FELIX_TYPHAK8SNAMESPACE
+        value: calico-system
+      - name: FELIX_TYPHAK8SSERVICENAME
+        value: calico-typha
+      - name: FELIX_TYPHACAFILE
+        value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+      - name: FELIX_TYPHACERTFILE
+        value: /node-certs/tls.crt
+      - name: FELIX_TYPHAKEYFILE
+        value: /node-certs/tls.key
+      - name: FIPS_MODE_ENABLED
+        value: "false"
+      - name: NO_DEFAULT_POOLS
+        value: "true"
+      - name: FELIX_TYPHACN
+        value: typha-server
+      - name: CALICO_MANAGE_CNI
+        value: "true"
+      - name: CALICO_NETWORKING_BACKEND
+        value: bird
+      - name: IP
+        value: autodetect
+      - name: IP_AUTODETECTION_METHOD
+        value: first-found
+      - name: IP6
+        value: none
+      - name: FELIX_IPV6SUPPORT
+        value: "false"
+      - name: KUBERNETES_SERVICE_HOST
+        value: 10.96.0.1
+      - name: KUBERNETES_SERVICE_PORT
+        value: "443"
+      image: docker.io/calico/node:v3.28.0
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+            - /bin/calico-node
+            - -shutdown
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          host: localhost
+          path: /liveness
+          port: 9099
+          scheme: HTTP
+        periodSeconds: 60
+        successThreshold: 1
+        timeoutSeconds: 10
+      name: calico-node
+      readinessProbe:
+        exec:
+          command:
+          - /bin/calico-node
+          - -bird-ready
+          - -felix-ready
+        failureThreshold: 3
+        periodSeconds: 30
+        successThreshold: 1
+        timeoutSeconds: 10
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        subPath: ca-bundle.crt
+      - mountPath: /lib/modules
+        name: lib-modules
+        readOnly: true
+      - mountPath: /run/xtables.lock
+        name: xtables-lock
+      - mountPath: /var/run/nodeagent
+        name: policysync
+      - mountPath: /node-certs
+        name: node-certs
+        readOnly: true
+      - mountPath: /var/run/calico
+        name: var-run-calico
+      - mountPath: /var/lib/calico
+        name: var-lib-calico
+      - mountPath: /var/log/calico/cni
+        name: cni-log-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-zczw9
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostNetwork: true
+    initContainers:
+    - image: docker.io/calico/pod2daemon-flexvol:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: flexvol-driver
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /host/driver
+        name: flexvol-driver-host
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-zczw9
+        readOnly: true
+    - command:
+      - /opt/cni/bin/install
+      env:
+      - name: CNI_CONF_NAME
+        value: 10-calico.conflist
+      - name: SLEEP
+        value: "false"
+      - name: CNI_NET_DIR
+        value: /etc/cni/net.d
+      - name: CNI_NETWORK_CONFIG
+        valueFrom:
+          configMapKeyRef:
+            key: config
+            name: cni-config
+      - name: KUBERNETES_SERVICE_HOST
+        value: 10.96.0.1
+      - name: KUBERNETES_SERVICE_PORT
+        value: "443"
+      image: docker.io/calico/cni:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: install-cni
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /host/opt/cni/bin
+        name: cni-bin-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-zczw9
+        readOnly: true
+    nodeName: sam-test-cluster-control-plane
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 2000001000
+    priorityClassName: system-node-critical
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: calico-node
+    serviceAccountName: calico-node
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/disk-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/pid-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/unschedulable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/network-unavailable
+      operator: Exists
+    volumes:
+    - hostPath:
+        path: /lib/modules
+        type: ""
+      name: lib-modules
+    - hostPath:
+        path: /run/xtables.lock
+        type: FileOrCreate
+      name: xtables-lock
+    - hostPath:
+        path: /var/run/nodeagent
+        type: DirectoryOrCreate
+      name: policysync
+    - configMap:
+        defaultMode: 420
+        name: tigera-ca-bundle
+      name: tigera-ca-bundle
+    - name: node-certs
+      secret:
+        defaultMode: 420
+        secretName: node-certs
+    - hostPath:
+        path: /var/run/calico
+        type: ""
+      name: var-run-calico
+    - hostPath:
+        path: /var/lib/calico
+        type: ""
+      name: var-lib-calico
+    - hostPath:
+        path: /opt/cni/bin
+        type: ""
+      name: cni-bin-dir
+    - hostPath:
+        path: /etc/cni/net.d
+        type: ""
+      name: cni-net-dir
+    - hostPath:
+        path: /var/log/calico/cni
+        type: ""
+      name: cni-log-dir
+    - hostPath:
+        path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+        type: DirectoryOrCreate
+      name: flexvol-driver-host
+    - name: kube-api-access-zczw9
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:06Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:10Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:48Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:48Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:03Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://98df711db6a0fe9febf8ced21b02fb2098a729f2f64050f5632e17e968e900f4
+      image: docker.io/calico/node:v3.28.0
+      imageID: docker.io/calico/node@sha256:385bf6391fea031649b8575799248762a2caece86e6e3f33ffee19c0c096e6a8
+      lastState: {}
+      name: calico-node
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:15Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /lib/modules
+        name: lib-modules
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /run/xtables.lock
+        name: xtables-lock
+      - mountPath: /var/run/nodeagent
+        name: policysync
+      - mountPath: /node-certs
+        name: node-certs
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /var/run/calico
+        name: var-run-calico
+      - mountPath: /var/lib/calico
+        name: var-lib-calico
+      - mountPath: /var/log/calico/cni
+        name: cni-log-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-zczw9
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 172.18.0.3
+    hostIPs:
+    - ip: 172.18.0.3
+    initContainerStatuses:
+    - containerID: containerd://558385c1963bbea04482a1888105eb1ed428cc80721c389ac1c52be05774fdfc
+      image: docker.io/calico/pod2daemon-flexvol:v3.28.0
+      imageID: docker.io/calico/pod2daemon-flexvol@sha256:2054fc9485e11bdde7ec8e22bca88bbf3a0f777f6c17509045a427294aa0a54b
+      lastState: {}
+      name: flexvol-driver
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://558385c1963bbea04482a1888105eb1ed428cc80721c389ac1c52be05774fdfc
+          exitCode: 0
+          finishedAt: "2026-01-10T22:53:06Z"
+          reason: Completed
+          startedAt: "2026-01-10T22:53:06Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /host/driver
+        name: flexvol-driver-host
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-zczw9
+        readOnly: true
+        recursiveReadOnly: Disabled
+    - containerID: containerd://bd2d9cd7b4aa7967ca4a0f2f5cc11289c4398b9bb41f7726c00fd9c275ddf4ab
+      image: docker.io/calico/cni:v3.28.0
+      imageID: docker.io/calico/cni@sha256:cef0c907b8f4cadc63701d371e6f24d325795bcf0be84d6a517e33000ff35f70
+      lastState: {}
+      name: install-cni
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://bd2d9cd7b4aa7967ca4a0f2f5cc11289c4398b9bb41f7726c00fd9c275ddf4ab
+          exitCode: 0
+          finishedAt: "2026-01-10T22:53:10Z"
+          reason: Completed
+          startedAt: "2026-01-10T22:53:10Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /host/opt/cni/bin
+        name: cni-bin-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-zczw9
+        readOnly: true
+        recursiveReadOnly: Disabled
+    observedGeneration: 1
+    phase: Running
+    podIP: 172.18.0.3
+    podIPs:
+    - ip: 172.18.0.3
+    qosClass: BestEffort
+    startTime: "2026-01-10T22:53:03Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      hash.operator.tigera.io/cni-config: 0a4321e1231844b30534560ce90e56b5ba0a02a1
+      hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+      tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+    creationTimestamp: "2026-01-10T22:56:12Z"
+    generateName: calico-node-
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-node
+      controller-revision-hash: 774cd5b999
+      k8s-app: calico-node
+      pod-template-generation: "4"
+    name: calico-node-zn49k
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DaemonSet
+      name: calico-node
+      uid: 2b61498b-9b4b-451b-9ba7-d1e97c85e827
+    resourceVersion: "2146"
+    uid: d2b554d5-69e6-41fb-b135-76f4004d8170
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchFields:
+            - key: metadata.name
+              operator: In
+              values:
+              - sam-test-cluster-worker
+    containers:
+    - env:
+      - name: DATASTORE_TYPE
+        value: kubernetes
+      - name: WAIT_FOR_DATASTORE
+        value: "true"
+      - name: CLUSTER_TYPE
+        value: k8s,operator,bgp
+      - name: CALICO_DISABLE_FILE_LOGGING
+        value: "false"
+      - name: FELIX_DEFAULTENDPOINTTOHOSTACTION
+        value: ACCEPT
+      - name: FELIX_HEALTHENABLED
+        value: "true"
+      - name: FELIX_HEALTHPORT
+        value: "9099"
+      - name: NODENAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      - name: NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: FELIX_TYPHAK8SNAMESPACE
+        value: calico-system
+      - name: FELIX_TYPHAK8SSERVICENAME
+        value: calico-typha
+      - name: FELIX_TYPHACAFILE
+        value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+      - name: FELIX_TYPHACERTFILE
+        value: /node-certs/tls.crt
+      - name: FELIX_TYPHAKEYFILE
+        value: /node-certs/tls.key
+      - name: FIPS_MODE_ENABLED
+        value: "false"
+      - name: NO_DEFAULT_POOLS
+        value: "true"
+      - name: FELIX_TYPHACN
+        value: typha-server
+      - name: CALICO_MANAGE_CNI
+        value: "true"
+      - name: CALICO_NETWORKING_BACKEND
+        value: bird
+      - name: IP
+        value: autodetect
+      - name: IP_AUTODETECTION_METHOD
+        value: first-found
+      - name: IP6
+        value: none
+      - name: FELIX_IPV6SUPPORT
+        value: "false"
+      - name: KUBERNETES_SERVICE_HOST
+        value: 10.96.0.1
+      - name: KUBERNETES_SERVICE_PORT
+        value: "443"
+      image: docker.io/calico/node:v3.28.0
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+            - /bin/calico-node
+            - -shutdown
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          host: localhost
+          path: /liveness
+          port: 9099
+          scheme: HTTP
+        periodSeconds: 60
+        successThreshold: 1
+        timeoutSeconds: 10
+      name: calico-node
+      readinessProbe:
+        exec:
+          command:
+          - /bin/calico-node
+          - -bird-ready
+          - -felix-ready
+        failureThreshold: 3
+        periodSeconds: 30
+        successThreshold: 1
+        timeoutSeconds: 10
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        subPath: ca-bundle.crt
+      - mountPath: /lib/modules
+        name: lib-modules
+        readOnly: true
+      - mountPath: /run/xtables.lock
+        name: xtables-lock
+      - mountPath: /var/run/nodeagent
+        name: policysync
+      - mountPath: /node-certs
+        name: node-certs
+        readOnly: true
+      - mountPath: /var/run/calico
+        name: var-run-calico
+      - mountPath: /var/lib/calico
+        name: var-lib-calico
+      - mountPath: /var/log/calico/cni
+        name: cni-log-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-sfn6w
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostNetwork: true
+    initContainers:
+    - image: docker.io/calico/pod2daemon-flexvol:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: flexvol-driver
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /host/driver
+        name: flexvol-driver-host
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-sfn6w
+        readOnly: true
+    - command:
+      - /opt/cni/bin/install
+      env:
+      - name: CNI_CONF_NAME
+        value: 10-calico.conflist
+      - name: SLEEP
+        value: "false"
+      - name: CNI_NET_DIR
+        value: /etc/cni/net.d
+      - name: CNI_NETWORK_CONFIG
+        valueFrom:
+          configMapKeyRef:
+            key: config
+            name: cni-config
+      - name: KUBERNETES_SERVICE_HOST
+        value: 10.96.0.1
+      - name: KUBERNETES_SERVICE_PORT
+        value: "443"
+      image: docker.io/calico/cni:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: install-cni
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /host/opt/cni/bin
+        name: cni-bin-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-sfn6w
+        readOnly: true
+    nodeName: sam-test-cluster-worker
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 2000001000
+    priorityClassName: system-node-critical
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: calico-node
+    serviceAccountName: calico-node
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/disk-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/pid-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/unschedulable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/network-unavailable
+      operator: Exists
+    volumes:
+    - hostPath:
+        path: /lib/modules
+        type: ""
+      name: lib-modules
+    - hostPath:
+        path: /run/xtables.lock
+        type: FileOrCreate
+      name: xtables-lock
+    - hostPath:
+        path: /var/run/nodeagent
+        type: DirectoryOrCreate
+      name: policysync
+    - configMap:
+        defaultMode: 420
+        name: tigera-ca-bundle
+      name: tigera-ca-bundle
+    - name: node-certs
+      secret:
+        defaultMode: 420
+        secretName: node-certs
+    - hostPath:
+        path: /var/run/calico
+        type: ""
+      name: var-run-calico
+    - hostPath:
+        path: /var/lib/calico
+        type: ""
+      name: var-lib-calico
+    - hostPath:
+        path: /opt/cni/bin
+        type: ""
+      name: cni-bin-dir
+    - hostPath:
+        path: /etc/cni/net.d
+        type: ""
+      name: cni-net-dir
+    - hostPath:
+        path: /var/log/calico/cni
+        type: ""
+      name: cni-log-dir
+    - hostPath:
+        path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+        type: DirectoryOrCreate
+      name: flexvol-driver-host
+    - name: kube-api-access-sfn6w
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:56:13Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:56:14Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:56:46Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:56:46Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:56:12Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://d7a1d0671fcbf70a8b328026f642ea19ef1336de93fe4e35447472c280df7c50
+      image: docker.io/calico/node:v3.28.0
+      imageID: docker.io/calico/node@sha256:385bf6391fea031649b8575799248762a2caece86e6e3f33ffee19c0c096e6a8
+      lastState: {}
+      name: calico-node
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:56:14Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /lib/modules
+        name: lib-modules
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /run/xtables.lock
+        name: xtables-lock
+      - mountPath: /var/run/nodeagent
+        name: policysync
+      - mountPath: /node-certs
+        name: node-certs
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /var/run/calico
+        name: var-run-calico
+      - mountPath: /var/lib/calico
+        name: var-lib-calico
+      - mountPath: /var/log/calico/cni
+        name: cni-log-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-sfn6w
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 172.18.0.2
+    hostIPs:
+    - ip: 172.18.0.2
+    initContainerStatuses:
+    - containerID: containerd://127350c46834d1c444cea87280e7021d5eba34eb48eb4444012dc52a5deb3bfc
+      image: docker.io/calico/pod2daemon-flexvol:v3.28.0
+      imageID: docker.io/calico/pod2daemon-flexvol@sha256:2054fc9485e11bdde7ec8e22bca88bbf3a0f777f6c17509045a427294aa0a54b
+      lastState: {}
+      name: flexvol-driver
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://127350c46834d1c444cea87280e7021d5eba34eb48eb4444012dc52a5deb3bfc
+          exitCode: 0
+          finishedAt: "2026-01-10T22:56:13Z"
+          reason: Completed
+          startedAt: "2026-01-10T22:56:13Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /host/driver
+        name: flexvol-driver-host
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-sfn6w
+        readOnly: true
+        recursiveReadOnly: Disabled
+    - containerID: containerd://c8f3598dea40eba085613a4e0e1b6a715a646a80eadd1bfabac0e68ae6a62672
+      image: docker.io/calico/cni:v3.28.0
+      imageID: docker.io/calico/cni@sha256:cef0c907b8f4cadc63701d371e6f24d325795bcf0be84d6a517e33000ff35f70
+      lastState: {}
+      name: install-cni
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://c8f3598dea40eba085613a4e0e1b6a715a646a80eadd1bfabac0e68ae6a62672
+          exitCode: 0
+          finishedAt: "2026-01-10T22:56:13Z"
+          reason: Completed
+          startedAt: "2026-01-10T22:56:13Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /host/opt/cni/bin
+        name: cni-bin-dir
+      - mountPath: /host/etc/cni/net.d
+        name: cni-net-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-sfn6w
+        readOnly: true
+        recursiveReadOnly: Disabled
+    observedGeneration: 1
+    phase: Running
+    podIP: 172.18.0.2
+    podIPs:
+    - ip: 172.18.0.2
+    qosClass: BestEffort
+    startTime: "2026-01-10T22:56:12Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+      tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+      tigera-operator.hash.operator.tigera.io/typha-certs: 10e6f7730c1cb8ca73de06d8dea8a4ffc08d7d0f
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generateName: calico-typha-78657c9c65-
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-typha
+      k8s-app: calico-typha
+      pod-template-hash: 78657c9c65
+    name: calico-typha-78657c9c65-kmffd
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: calico-typha-78657c9c65
+      uid: 788eff6f-b89d-4f44-b6f0-5e2b2c747735
+    resourceVersion: "1479"
+    uid: c7ba0907-aec2-4aa5-a78e-962dcc2a867c
+  spec:
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: k8s-app
+                operator: In
+                values:
+                - calico-typha
+            topologyKey: topology.kubernetes.io/zone
+          weight: 1
+    containers:
+    - env:
+      - name: TYPHA_LOGSEVERITYSCREEN
+        value: info
+      - name: TYPHA_LOGFILEPATH
+        value: none
+      - name: TYPHA_LOGSEVERITYSYS
+        value: none
+      - name: TYPHA_CONNECTIONREBALANCINGMODE
+        value: kubernetes
+      - name: TYPHA_DATASTORETYPE
+        value: kubernetes
+      - name: TYPHA_HEALTHENABLED
+        value: "true"
+      - name: TYPHA_HEALTHPORT
+        value: "9098"
+      - name: TYPHA_K8SNAMESPACE
+        value: calico-system
+      - name: TYPHA_CAFILE
+        value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+      - name: TYPHA_SERVERCERTFILE
+        value: /typha-certs/tls.crt
+      - name: TYPHA_SERVERKEYFILE
+        value: /typha-certs/tls.key
+      - name: TYPHA_FIPSMODEENABLED
+        value: "false"
+      - name: TYPHA_SHUTDOWNTIMEOUTSECS
+        value: "300"
+      - name: TYPHA_CLIENTCN
+        value: typha-client
+      - name: KUBERNETES_SERVICE_HOST
+        value: 10.96.0.1
+      - name: KUBERNETES_SERVICE_PORT
+        value: "443"
+      image: docker.io/calico/typha:v3.28.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          host: localhost
+          path: /liveness
+          port: 9098
+          scheme: HTTP
+        periodSeconds: 60
+        successThreshold: 1
+        timeoutSeconds: 10
+      name: calico-typha
+      ports:
+      - containerPort: 5473
+        hostPort: 5473
+        name: calico-typha
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          host: localhost
+          path: /readiness
+          port: 9098
+          scheme: HTTP
+        periodSeconds: 30
+        successThreshold: 1
+        timeoutSeconds: 10
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        subPath: ca-bundle.crt
+      - mountPath: /typha-certs
+        name: typha-certs
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-svqwl
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostNetwork: true
+    nodeName: sam-test-cluster-worker
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 2000000000
+    priorityClassName: system-cluster-critical
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: calico-typha
+    serviceAccountName: calico-typha
+    terminationGracePeriodSeconds: 300
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: tigera-ca-bundle
+      name: tigera-ca-bundle
+    - name: typha-certs
+      secret:
+        defaultMode: 420
+        secretName: typha-certs
+    - name: kube-api-access-svqwl
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:05Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:01Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:05Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:05Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:01Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://281ea85d0f764f217fcbf6b87be57c2d4af767e8b4c42d7f765ebcd2871f9d68
+      image: docker.io/calico/typha:v3.28.0
+      imageID: docker.io/calico/typha@sha256:77677c3b2614923988960151008ffc876582c722199e4b0a9a084a70b6539637
+      lastState: {}
+      name: calico-typha
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:05Z"
+      user:
+        linux:
+          gid: 10001
+          supplementalGroups:
+          - 10001
+          uid: 10001
+      volumeMounts:
+      - mountPath: /etc/pki/tls/certs
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /etc/pki/tls/cert.pem
+        name: tigera-ca-bundle
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /typha-certs
+        name: typha-certs
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-svqwl
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 172.18.0.2
+    hostIPs:
+    - ip: 172.18.0.2
+    observedGeneration: 1
+    phase: Running
+    podIP: 172.18.0.2
+    podIPs:
+    - ip: 172.18.0.2
+    qosClass: BestEffort
+    startTime: "2026-01-10T22:53:01Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      cni.projectcalico.org/containerID: 79487498af7b492f34bbd3f229ebd640af158ac8c1b9a13599a0e46b57efc75f
+      cni.projectcalico.org/podIP: 10.244.247.5/32
+      cni.projectcalico.org/podIPs: 10.244.247.5/32
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generateName: csi-node-driver-
+    generation: 1
+    labels:
+      app.kubernetes.io/name: csi-node-driver
+      controller-revision-hash: 555cd49dd6
+      k8s-app: csi-node-driver
+      name: csi-node-driver
+      pod-template-generation: "1"
+    name: csi-node-driver-99gzx
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DaemonSet
+      name: csi-node-driver
+      uid: ee70eb1d-6c82-4e4a-8cd7-6588b4863e26
+    resourceVersion: "1714"
+    uid: eee48255-5aa4-4af1-ae6e-f53670c95958
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchFields:
+            - key: metadata.name
+              operator: In
+              values:
+              - sam-test-cluster-control-plane
+    containers:
+    - args:
+      - --nodeid=$(KUBE_NODE_NAME)
+      - --loglevel=$(LOG_LEVEL)
+      env:
+      - name: LOG_LEVEL
+        value: warn
+      - name: KUBE_NODE_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      image: docker.io/calico/csi:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: calico-csi
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run
+        name: varrun
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /var/lib/kubelet
+        mountPropagation: Bidirectional
+        name: kubelet-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-l97z5
+        readOnly: true
+    - args:
+      - --v=5
+      - --csi-address=$(ADDRESS)
+      - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+      env:
+      - name: ADDRESS
+        value: /csi/csi.sock
+      - name: DRIVER_REG_SOCK_PATH
+        value: /var/lib/kubelet/plugins/csi.tigera.io/csi.sock
+      - name: KUBE_NODE_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      image: docker.io/calico/node-driver-registrar:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: csi-node-driver-registrar
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /registration
+        name: registration-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-l97z5
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: sam-test-cluster-control-plane
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 2000001000
+    priorityClassName: system-node-critical
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/disk-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/pid-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/unschedulable
+      operator: Exists
+    volumes:
+    - hostPath:
+        path: /var/run
+        type: ""
+      name: varrun
+    - hostPath:
+        path: /var/lib/kubelet
+        type: Directory
+      name: kubelet-dir
+    - hostPath:
+        path: /var/lib/kubelet/plugins/csi.tigera.io
+        type: DirectoryOrCreate
+      name: socket-dir
+    - hostPath:
+        path: /var/lib/kubelet/plugins_registry
+        type: Directory
+      name: registration-dir
+    - name: kube-api-access-l97z5
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:34Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:01Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:34Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:34Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:01Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://6c57b223bdb06427f12bd876c7543eaa7fb940120cca9db591fbf5e8f6ad3714
+      image: docker.io/calico/csi:v3.28.0
+      imageID: docker.io/calico/csi@sha256:6590b3466d5bfeb26e0337b85bdd25ff5361e6373e5e5a72fab5212a65c62247
+      lastState: {}
+      name: calico-csi
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:31Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /var/run
+        name: varrun
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /var/lib/kubelet
+        name: kubelet-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-l97z5
+        readOnly: true
+        recursiveReadOnly: Disabled
+    - containerID: containerd://5c8fc4d4e1584505deb1e442c2bb07c9dd4af46a7dd7ab2a20452f5bd1f19e78
+      image: docker.io/calico/node-driver-registrar:v3.28.0
+      imageID: docker.io/calico/node-driver-registrar@sha256:25a00aca99eb67ca8fc6fda2888bdce0f8bb6704d71433f3daba52e72061a785
+      lastState: {}
+      name: csi-node-driver-registrar
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:34Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /registration
+        name: registration-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-l97z5
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 172.18.0.3
+    hostIPs:
+    - ip: 172.18.0.3
+    observedGeneration: 1
+    phase: Running
+    podIP: 10.244.247.5
+    podIPs:
+    - ip: 10.244.247.5
+    qosClass: BestEffort
+    startTime: "2026-01-10T22:53:01Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      cni.projectcalico.org/containerID: 10a09eddd55cc316255525178e73f6e789fa8d00fabbd1d2b0191e1ad2898df8
+      cni.projectcalico.org/podIP: 10.244.55.129/32
+      cni.projectcalico.org/podIPs: 10.244.55.129/32
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generateName: csi-node-driver-
+    generation: 1
+    labels:
+      app.kubernetes.io/name: csi-node-driver
+      controller-revision-hash: 555cd49dd6
+      k8s-app: csi-node-driver
+      name: csi-node-driver
+      pod-template-generation: "1"
+    name: csi-node-driver-pqgw6
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DaemonSet
+      name: csi-node-driver
+      uid: ee70eb1d-6c82-4e4a-8cd7-6588b4863e26
+    resourceVersion: "1718"
+    uid: ddef975f-c18c-45f2-b0fc-2c73b52cfd32
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchFields:
+            - key: metadata.name
+              operator: In
+              values:
+              - sam-test-cluster-worker
+    containers:
+    - args:
+      - --nodeid=$(KUBE_NODE_NAME)
+      - --loglevel=$(LOG_LEVEL)
+      env:
+      - name: LOG_LEVEL
+        value: warn
+      - name: KUBE_NODE_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      image: docker.io/calico/csi:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: calico-csi
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run
+        name: varrun
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /var/lib/kubelet
+        mountPropagation: Bidirectional
+        name: kubelet-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-drdqp
+        readOnly: true
+    - args:
+      - --v=5
+      - --csi-address=$(ADDRESS)
+      - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+      env:
+      - name: ADDRESS
+        value: /csi/csi.sock
+      - name: DRIVER_REG_SOCK_PATH
+        value: /var/lib/kubelet/plugins/csi.tigera.io/csi.sock
+      - name: KUBE_NODE_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      image: docker.io/calico/node-driver-registrar:v3.28.0
+      imagePullPolicy: IfNotPresent
+      name: csi-node-driver-registrar
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        capabilities:
+          drop:
+          - ALL
+        privileged: true
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /registration
+        name: registration-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-drdqp
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: sam-test-cluster-worker
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 2000001000
+    priorityClassName: system-node-critical
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/disk-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/pid-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/unschedulable
+      operator: Exists
+    volumes:
+    - hostPath:
+        path: /var/run
+        type: ""
+      name: varrun
+    - hostPath:
+        path: /var/lib/kubelet
+        type: Directory
+      name: kubelet-dir
+    - hostPath:
+        path: /var/lib/kubelet/plugins/csi.tigera.io
+        type: DirectoryOrCreate
+      name: socket-dir
+    - hostPath:
+        path: /var/lib/kubelet/plugins_registry
+        type: Directory
+      name: registration-dir
+    - name: kube-api-access-drdqp
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:35Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:01Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:35Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:35Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-01-10T22:53:01Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://78bfda8458d7200c76a4e204d2e94e6d8b3279b7ab782356f5c413cbb49bb3cf
+      image: docker.io/calico/csi:v3.28.0
+      imageID: docker.io/calico/csi@sha256:6590b3466d5bfeb26e0337b85bdd25ff5361e6373e5e5a72fab5212a65c62247
+      lastState: {}
+      name: calico-csi
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:31Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /var/run
+        name: varrun
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /var/lib/kubelet
+        name: kubelet-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-drdqp
+        readOnly: true
+        recursiveReadOnly: Disabled
+    - containerID: containerd://0ccf5604c73bf2f27be5cfbea2aa78c30d18ff0f7ab586e506d55582dfd518a4
+      image: docker.io/calico/node-driver-registrar:v3.28.0
+      imageID: docker.io/calico/node-driver-registrar@sha256:25a00aca99eb67ca8fc6fda2888bdce0f8bb6704d71433f3daba52e72061a785
+      lastState: {}
+      name: csi-node-driver-registrar
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-01-10T22:53:34Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /csi
+        name: socket-dir
+      - mountPath: /registration
+        name: registration-dir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-drdqp
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 172.18.0.2
+    hostIPs:
+    - ip: 172.18.0.2
+    observedGeneration: 1
+    phase: Running
+    podIP: 10.244.55.129
+    podIPs:
+    - ip: 10.244.55.129
+    qosClass: BestEffort
+    startTime: "2026-01-10T22:53:01Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      prometheus.io/port: "9094"
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2026-01-10T22:53:29Z"
+    labels:
+      k8s-app: calico-kube-controllers
+    name: calico-kube-controllers-metrics
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1662"
+    uid: e09f87e6-0b8e-4f0d-afd4-0f933313aba7
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: metrics-port
+      port: 9094
+      protocol: TCP
+      targetPort: 9094
+    selector:
+      k8s-app: calico-kube-controllers
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    labels:
+      k8s-app: calico-typha
+    name: calico-typha
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1347"
+    uid: 33a70e68-d30c-4af7-8fb0-01a1e7a55a6d
+  spec:
+    clusterIP: 10.96.116.142
+    clusterIPs:
+    - 10.96.116.142
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: calico-typha
+      port: 5473
+      protocol: TCP
+      targetPort: calico-typha
+    selector:
+      k8s-app: calico-typha
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      deprecated.daemonset.template.generation: "4"
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 4
+    name: calico-node
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "2147"
+    uid: 2b61498b-9b4b-451b-9ba7-d1e97c85e827
+  spec:
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: calico-node
+    template:
+      metadata:
+        annotations:
+          hash.operator.tigera.io/cni-config: 0a4321e1231844b30534560ce90e56b5ba0a02a1
+          hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+          tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+        labels:
+          app.kubernetes.io/name: calico-node
+          k8s-app: calico-node
+      spec:
+        containers:
+        - env:
+          - name: DATASTORE_TYPE
+            value: kubernetes
+          - name: WAIT_FOR_DATASTORE
+            value: "true"
+          - name: CLUSTER_TYPE
+            value: k8s,operator,bgp
+          - name: CALICO_DISABLE_FILE_LOGGING
+            value: "false"
+          - name: FELIX_DEFAULTENDPOINTTOHOSTACTION
+            value: ACCEPT
+          - name: FELIX_HEALTHENABLED
+            value: "true"
+          - name: FELIX_HEALTHPORT
+            value: "9099"
+          - name: NODENAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: FELIX_TYPHAK8SNAMESPACE
+            value: calico-system
+          - name: FELIX_TYPHAK8SSERVICENAME
+            value: calico-typha
+          - name: FELIX_TYPHACAFILE
+            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+          - name: FELIX_TYPHACERTFILE
+            value: /node-certs/tls.crt
+          - name: FELIX_TYPHAKEYFILE
+            value: /node-certs/tls.key
+          - name: FIPS_MODE_ENABLED
+            value: "false"
+          - name: NO_DEFAULT_POOLS
+            value: "true"
+          - name: FELIX_TYPHACN
+            value: typha-server
+          - name: CALICO_MANAGE_CNI
+            value: "true"
+          - name: CALICO_NETWORKING_BACKEND
+            value: bird
+          - name: IP
+            value: autodetect
+          - name: IP_AUTODETECTION_METHOD
+            value: first-found
+          - name: IP6
+            value: none
+          - name: FELIX_IPV6SUPPORT
+            value: "false"
+          - name: KUBERNETES_SERVICE_HOST
+            value: 10.96.0.1
+          - name: KUBERNETES_SERVICE_PORT
+            value: "443"
+          image: docker.io/calico/node:v3.28.0
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                - /bin/calico-node
+                - -shutdown
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              host: localhost
+              path: /liveness
+              port: 9099
+              scheme: HTTP
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: calico-node
+          readinessProbe:
+            exec:
+              command:
+              - /bin/calico-node
+              - -bird-ready
+              - -felix-ready
+            failureThreshold: 3
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              drop:
+              - ALL
+            privileged: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/pki/tls/certs
+            name: tigera-ca-bundle
+            readOnly: true
+          - mountPath: /etc/pki/tls/cert.pem
+            name: tigera-ca-bundle
+            readOnly: true
+            subPath: ca-bundle.crt
+          - mountPath: /lib/modules
+            name: lib-modules
+            readOnly: true
+          - mountPath: /run/xtables.lock
+            name: xtables-lock
+          - mountPath: /var/run/nodeagent
+            name: policysync
+          - mountPath: /node-certs
+            name: node-certs
+            readOnly: true
+          - mountPath: /var/run/calico
+            name: var-run-calico
+          - mountPath: /var/lib/calico
+            name: var-lib-calico
+          - mountPath: /var/log/calico/cni
+            name: cni-log-dir
+          - mountPath: /host/etc/cni/net.d
+            name: cni-net-dir
+        dnsPolicy: ClusterFirst
+        hostNetwork: true
+        initContainers:
+        - image: docker.io/calico/pod2daemon-flexvol:v3.28.0
+          imagePullPolicy: IfNotPresent
+          name: flexvol-driver
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              drop:
+              - ALL
+            privileged: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /host/driver
+            name: flexvol-driver-host
+        - command:
+          - /opt/cni/bin/install
+          env:
+          - name: CNI_CONF_NAME
+            value: 10-calico.conflist
+          - name: SLEEP
+            value: "false"
+          - name: CNI_NET_DIR
+            value: /etc/cni/net.d
+          - name: CNI_NETWORK_CONFIG
+            valueFrom:
+              configMapKeyRef:
+                key: config
+                name: cni-config
+          - name: KUBERNETES_SERVICE_HOST
+            value: 10.96.0.1
+          - name: KUBERNETES_SERVICE_PORT
+            value: "443"
+          image: docker.io/calico/cni:v3.28.0
+          imagePullPolicy: IfNotPresent
+          name: install-cni
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              drop:
+              - ALL
+            privileged: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /host/opt/cni/bin
+            name: cni-bin-dir
+          - mountPath: /host/etc/cni/net.d
+            name: cni-net-dir
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-node-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: calico-node
+        serviceAccountName: calico-node
+        terminationGracePeriodSeconds: 5
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+        volumes:
+        - hostPath:
+            path: /lib/modules
+            type: ""
+          name: lib-modules
+        - hostPath:
+            path: /run/xtables.lock
+            type: FileOrCreate
+          name: xtables-lock
+        - hostPath:
+            path: /var/run/nodeagent
+            type: DirectoryOrCreate
+          name: policysync
+        - configMap:
+            defaultMode: 420
+            name: tigera-ca-bundle
+          name: tigera-ca-bundle
+        - name: node-certs
+          secret:
+            defaultMode: 420
+            secretName: node-certs
+        - hostPath:
+            path: /var/run/calico
+            type: ""
+          name: var-run-calico
+        - hostPath:
+            path: /var/lib/calico
+            type: ""
+          name: var-lib-calico
+        - hostPath:
+            path: /opt/cni/bin
+            type: ""
+          name: cni-bin-dir
+        - hostPath:
+            path: /etc/cni/net.d
+            type: ""
+          name: cni-net-dir
+        - hostPath:
+            path: /var/log/calico/cni
+            type: ""
+          name: cni-log-dir
+        - hostPath:
+            path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+            type: DirectoryOrCreate
+          name: flexvol-driver-host
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
+      type: RollingUpdate
+  status:
+    currentNumberScheduled: 2
+    desiredNumberScheduled: 2
+    numberAvailable: 2
+    numberMisscheduled: 0
+    numberReady: 2
+    observedGeneration: 4
+    updatedNumberScheduled: 2
+- apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      deprecated.daemonset.template.generation: "1"
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    name: csi-node-driver
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1719"
+    uid: ee70eb1d-6c82-4e4a-8cd7-6588b4863e26
+  spec:
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: csi-node-driver
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: csi-node-driver
+          k8s-app: csi-node-driver
+          name: csi-node-driver
+      spec:
+        containers:
+        - args:
+          - --nodeid=$(KUBE_NODE_NAME)
+          - --loglevel=$(LOG_LEVEL)
+          env:
+          - name: LOG_LEVEL
+            value: warn
+          - name: KUBE_NODE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          image: docker.io/calico/csi:v3.28.0
+          imagePullPolicy: IfNotPresent
+          name: calico-csi
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              drop:
+              - ALL
+            privileged: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run
+            name: varrun
+          - mountPath: /csi
+            name: socket-dir
+          - mountPath: /var/lib/kubelet
+            mountPropagation: Bidirectional
+            name: kubelet-dir
+        - args:
+          - --v=5
+          - --csi-address=$(ADDRESS)
+          - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+          env:
+          - name: ADDRESS
+            value: /csi/csi.sock
+          - name: DRIVER_REG_SOCK_PATH
+            value: /var/lib/kubelet/plugins/csi.tigera.io/csi.sock
+          - name: KUBE_NODE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          image: docker.io/calico/node-driver-registrar:v3.28.0
+          imagePullPolicy: IfNotPresent
+          name: csi-node-driver-registrar
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              drop:
+              - ALL
+            privileged: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /csi
+            name: socket-dir
+          - mountPath: /registration
+            name: registration-dir
+        dnsPolicy: ClusterFirst
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-node-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+        volumes:
+        - hostPath:
+            path: /var/run
+            type: ""
+          name: varrun
+        - hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+          name: kubelet-dir
+        - hostPath:
+            path: /var/lib/kubelet/plugins/csi.tigera.io
+            type: DirectoryOrCreate
+          name: socket-dir
+        - hostPath:
+            path: /var/lib/kubelet/plugins_registry
+            type: Directory
+          name: registration-dir
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
+      type: RollingUpdate
+  status:
+    currentNumberScheduled: 2
+    desiredNumberScheduled: 2
+    numberAvailable: 2
+    numberMisscheduled: 0
+    numberReady: 2
+    observedGeneration: 1
+    updatedNumberScheduled: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-kube-controllers
+      k8s-app: calico-kube-controllers
+    name: calico-kube-controllers
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1686"
+    uid: 8661b407-8400-4673-bb19-a74a64a75cf6
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: calico-kube-controllers
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+          tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+        labels:
+          app.kubernetes.io/name: calico-kube-controllers
+          k8s-app: calico-kube-controllers
+        name: calico-kube-controllers
+        namespace: calico-system
+      spec:
+        containers:
+        - env:
+          - name: KUBE_CONTROLLERS_CONFIG_NAME
+            value: default
+          - name: DATASTORE_TYPE
+            value: kubernetes
+          - name: ENABLED_CONTROLLERS
+            value: node
+          - name: FIPS_MODE_ENABLED
+            value: "false"
+          - name: DISABLE_KUBE_CONTROLLERS_CONFIG_API
+            value: "false"
+          - name: KUBERNETES_SERVICE_HOST
+            value: 10.96.0.1
+          - name: KUBERNETES_SERVICE_PORT
+            value: "443"
+          - name: CA_CRT_PATH
+            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+          image: docker.io/calico/kube-controllers:v3.28.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - /usr/bin/check-status
+              - -l
+            failureThreshold: 6
+            initialDelaySeconds: 10
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: calico-kube-controllers
+          readinessProbe:
+            exec:
+              command:
+              - /usr/bin/check-status
+              - -r
+            failureThreshold: 3
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            runAsGroup: 0
+            runAsNonRoot: true
+            runAsUser: 999
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/pki/tls/certs
+            name: tigera-ca-bundle
+            readOnly: true
+          - mountPath: /etc/pki/tls/cert.pem
+            name: tigera-ca-bundle
+            readOnly: true
+            subPath: ca-bundle.crt
+        dnsPolicy: ClusterFirst
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: calico-kube-controllers
+        serviceAccountName: calico-kube-controllers
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: tigera-ca-bundle
+          name: tigera-ca-bundle
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-01-10T22:53:29Z"
+      lastUpdateTime: "2026-01-10T22:53:29Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-01-10T22:53:01Z"
+      lastUpdateTime: "2026-01-10T22:53:29Z"
+      message: ReplicaSet "calico-kube-controllers-6958f49f48" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-typha
+      k8s-app: calico-typha
+    name: calico-typha
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1484"
+    uid: c27b6b3d-c118-418c-a7f2-b19b26df8fae
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        k8s-app: calico-typha
+    strategy:
+      rollingUpdate:
+        maxSurge: 100%
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+          tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+          tigera-operator.hash.operator.tigera.io/typha-certs: 10e6f7730c1cb8ca73de06d8dea8a4ffc08d7d0f
+        labels:
+          app.kubernetes.io/name: calico-typha
+          k8s-app: calico-typha
+      spec:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: k8s-app
+                    operator: In
+                    values:
+                    - calico-typha
+                topologyKey: topology.kubernetes.io/zone
+              weight: 1
+        containers:
+        - env:
+          - name: TYPHA_LOGSEVERITYSCREEN
+            value: info
+          - name: TYPHA_LOGFILEPATH
+            value: none
+          - name: TYPHA_LOGSEVERITYSYS
+            value: none
+          - name: TYPHA_CONNECTIONREBALANCINGMODE
+            value: kubernetes
+          - name: TYPHA_DATASTORETYPE
+            value: kubernetes
+          - name: TYPHA_HEALTHENABLED
+            value: "true"
+          - name: TYPHA_HEALTHPORT
+            value: "9098"
+          - name: TYPHA_K8SNAMESPACE
+            value: calico-system
+          - name: TYPHA_CAFILE
+            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+          - name: TYPHA_SERVERCERTFILE
+            value: /typha-certs/tls.crt
+          - name: TYPHA_SERVERKEYFILE
+            value: /typha-certs/tls.key
+          - name: TYPHA_FIPSMODEENABLED
+            value: "false"
+          - name: TYPHA_SHUTDOWNTIMEOUTSECS
+            value: "300"
+          - name: TYPHA_CLIENTCN
+            value: typha-client
+          - name: KUBERNETES_SERVICE_HOST
+            value: 10.96.0.1
+          - name: KUBERNETES_SERVICE_PORT
+            value: "443"
+          image: docker.io/calico/typha:v3.28.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              host: localhost
+              path: /liveness
+              port: 9098
+              scheme: HTTP
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: calico-typha
+          ports:
+          - containerPort: 5473
+            name: calico-typha
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              host: localhost
+              path: /readiness
+              port: 9098
+              scheme: HTTP
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/pki/tls/certs
+            name: tigera-ca-bundle
+            readOnly: true
+          - mountPath: /etc/pki/tls/cert.pem
+            name: tigera-ca-bundle
+            readOnly: true
+            subPath: ca-bundle.crt
+          - mountPath: /typha-certs
+            name: typha-certs
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        hostNetwork: true
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: calico-typha
+        serviceAccountName: calico-typha
+        terminationGracePeriodSeconds: 300
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: tigera-ca-bundle
+          name: tigera-ca-bundle
+        - name: typha-certs
+          secret:
+            defaultMode: 420
+            secretName: typha-certs
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-01-10T22:53:01Z"
+      lastUpdateTime: "2026-01-10T22:53:01Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-01-10T22:53:01Z"
+      lastUpdateTime: "2026-01-10T22:53:06Z"
+      message: ReplicaSet "calico-typha-78657c9c65" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-kube-controllers
+      k8s-app: calico-kube-controllers
+      pod-template-hash: 6958f49f48
+    name: calico-kube-controllers-6958f49f48
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: calico-kube-controllers
+      uid: 8661b407-8400-4673-bb19-a74a64a75cf6
+    resourceVersion: "1685"
+    uid: 898ef6a2-952c-4109-9b24-b4ad7e565762
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        k8s-app: calico-kube-controllers
+        pod-template-hash: 6958f49f48
+    template:
+      metadata:
+        annotations:
+          hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+          tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+        labels:
+          app.kubernetes.io/name: calico-kube-controllers
+          k8s-app: calico-kube-controllers
+          pod-template-hash: 6958f49f48
+        name: calico-kube-controllers
+        namespace: calico-system
+      spec:
+        containers:
+        - env:
+          - name: KUBE_CONTROLLERS_CONFIG_NAME
+            value: default
+          - name: DATASTORE_TYPE
+            value: kubernetes
+          - name: ENABLED_CONTROLLERS
+            value: node
+          - name: FIPS_MODE_ENABLED
+            value: "false"
+          - name: DISABLE_KUBE_CONTROLLERS_CONFIG_API
+            value: "false"
+          - name: KUBERNETES_SERVICE_HOST
+            value: 10.96.0.1
+          - name: KUBERNETES_SERVICE_PORT
+            value: "443"
+          - name: CA_CRT_PATH
+            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+          image: docker.io/calico/kube-controllers:v3.28.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - /usr/bin/check-status
+              - -l
+            failureThreshold: 6
+            initialDelaySeconds: 10
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: calico-kube-controllers
+          readinessProbe:
+            exec:
+              command:
+              - /usr/bin/check-status
+              - -r
+            failureThreshold: 3
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            runAsGroup: 0
+            runAsNonRoot: true
+            runAsUser: 999
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/pki/tls/certs
+            name: tigera-ca-bundle
+            readOnly: true
+          - mountPath: /etc/pki/tls/cert.pem
+            name: tigera-ca-bundle
+            readOnly: true
+            subPath: ca-bundle.crt
+        dnsPolicy: ClusterFirst
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: calico-kube-controllers
+        serviceAccountName: calico-kube-controllers
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: tigera-ca-bundle
+          name: tigera-ca-bundle
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/name: calico-typha
+      k8s-app: calico-typha
+      pod-template-hash: 78657c9c65
+    name: calico-typha-78657c9c65
+    namespace: calico-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: calico-typha
+      uid: c27b6b3d-c118-418c-a7f2-b19b26df8fae
+    resourceVersion: "1483"
+    uid: 788eff6f-b89d-4f44-b6f0-5e2b2c747735
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        k8s-app: calico-typha
+        pod-template-hash: 78657c9c65
+    template:
+      metadata:
+        annotations:
+          hash.operator.tigera.io/system: fdde45054a8ae4f629960ce37570929502e59449
+          tigera-operator.hash.operator.tigera.io/tigera-ca-private: 19692a63f8e6e52e4417302aebfaa4f77f89f716
+          tigera-operator.hash.operator.tigera.io/typha-certs: 10e6f7730c1cb8ca73de06d8dea8a4ffc08d7d0f
+        labels:
+          app.kubernetes.io/name: calico-typha
+          k8s-app: calico-typha
+          pod-template-hash: 78657c9c65
+      spec:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: k8s-app
+                    operator: In
+                    values:
+                    - calico-typha
+                topologyKey: topology.kubernetes.io/zone
+              weight: 1
+        containers:
+        - env:
+          - name: TYPHA_LOGSEVERITYSCREEN
+            value: info
+          - name: TYPHA_LOGFILEPATH
+            value: none
+          - name: TYPHA_LOGSEVERITYSYS
+            value: none
+          - name: TYPHA_CONNECTIONREBALANCINGMODE
+            value: kubernetes
+          - name: TYPHA_DATASTORETYPE
+            value: kubernetes
+          - name: TYPHA_HEALTHENABLED
+            value: "true"
+          - name: TYPHA_HEALTHPORT
+            value: "9098"
+          - name: TYPHA_K8SNAMESPACE
+            value: calico-system
+          - name: TYPHA_CAFILE
+            value: /etc/pki/tls/certs/tigera-ca-bundle.crt
+          - name: TYPHA_SERVERCERTFILE
+            value: /typha-certs/tls.crt
+          - name: TYPHA_SERVERKEYFILE
+            value: /typha-certs/tls.key
+          - name: TYPHA_FIPSMODEENABLED
+            value: "false"
+          - name: TYPHA_SHUTDOWNTIMEOUTSECS
+            value: "300"
+          - name: TYPHA_CLIENTCN
+            value: typha-client
+          - name: KUBERNETES_SERVICE_HOST
+            value: 10.96.0.1
+          - name: KUBERNETES_SERVICE_PORT
+            value: "443"
+          image: docker.io/calico/typha:v3.28.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              host: localhost
+              path: /liveness
+              port: 9098
+              scheme: HTTP
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: calico-typha
+          ports:
+          - containerPort: 5473
+            name: calico-typha
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              host: localhost
+              path: /readiness
+              port: 9098
+              scheme: HTTP
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/pki/tls/certs
+            name: tigera-ca-bundle
+            readOnly: true
+          - mountPath: /etc/pki/tls/cert.pem
+            name: tigera-ca-bundle
+            readOnly: true
+            subPath: ca-bundle.crt
+          - mountPath: /typha-certs
+            name: typha-certs
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        hostNetwork: true
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: calico-typha
+        serviceAccountName: calico-typha
+        terminationGracePeriodSeconds: 300
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: tigera-ca-bundle
+          name: tigera-ca-bundle
+        - name: typha-certs
+          secret:
+            defaultMode: 420
+            secretName: typha-certs
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+kind: List
+metadata:
+  resourceVersion: ""

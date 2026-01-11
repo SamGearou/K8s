@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleep
+spec:
+  containers:
+    - name: check
+      image: jayunit100/ubuntu-utils
+      command:
+        - "sleep"
+        - "10000"

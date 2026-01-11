@@ -1,0 +1,816 @@
+apiVersion: v1
+items:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    finalizers:
+    - tigera.io/cni-protector
+    name: calico-cni-plugin
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1368"
+    uid: e82d70ef-3ad0-461e-aba4-305b38b8dcf8
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - nodes
+    - namespaces
+    verbs:
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - pods/status
+    verbs:
+    - patch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - blockaffinities
+    - ipamblocks
+    - ipamhandles
+    - ipamconfigs
+    - clusterinformations
+    - ippools
+    - ipreservations
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    name: calico-kube-controllers
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1396"
+    uid: b3b113f3-8406-4b06-999c-1959d192711c
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - nodes
+    - endpoints
+    - services
+    verbs:
+    - watch
+    - list
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - ipreservations
+    verbs:
+    - list
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - blockaffinities
+    - ipamblocks
+    - ipamhandles
+    - networksets
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - ippools
+    verbs:
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - clusterinformations
+    verbs:
+    - get
+    - create
+    - update
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - hostendpoints
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - kubecontrollersconfigurations
+    verbs:
+    - get
+    - create
+    - update
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    finalizers:
+    - tigera.io/cni-protector
+    name: calico-node
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1358"
+    uid: 88320310-f773-41d3-8b65-fdc7e5b4aab8
+  rules:
+  - apiGroups:
+    - discovery.k8s.io
+    resources:
+    - endpointslices
+    verbs:
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - nodes
+    - namespaces
+    verbs:
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - endpoints
+    - services
+    verbs:
+    - watch
+    - list
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - nodes/status
+    verbs:
+    - patch
+    - update
+  - apiGroups:
+    - networking.k8s.io
+    resources:
+    - networkpolicies
+    verbs:
+    - watch
+    - list
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - namespaces
+    - serviceaccounts
+    verbs:
+    - watch
+    - list
+  - apiGroups:
+    - ""
+    resources:
+    - pods/status
+    verbs:
+    - patch
+  - apiGroups:
+    - ""
+    resourceNames:
+    - calico-cni-plugin
+    resources:
+    - serviceaccounts/token
+    verbs:
+    - create
+  - apiGroups:
+    - ""
+    resources:
+    - configmaps
+    verbs:
+    - get
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - bgpfilters
+    - bgpconfigurations
+    - bgppeers
+    - bgpfilters
+    - blockaffinities
+    - clusterinformations
+    - felixconfigurations
+    - globalnetworkpolicies
+    - stagedglobalnetworkpolicies
+    - globalnetworksets
+    - hostendpoints
+    - ipamblocks
+    - ippools
+    - ipreservations
+    - networkpolicies
+    - stagedkubernetesnetworkpolicies
+    - stagednetworkpolicies
+    - networksets
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - caliconodestatuses
+    verbs:
+    - get
+    - list
+    - watch
+    - update
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - globalbgpconfigs
+    - globalfelixconfigs
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - clusterinformations
+    - felixconfigurations
+    - ippools
+    verbs:
+    - create
+    - update
+  - apiGroups:
+    - ""
+    resources:
+    - nodes
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - blockaffinities
+    - ipamblocks
+    - ipamhandles
+    - ipamconfigs
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - ipamconfigs
+    verbs:
+    - get
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - blockaffinities
+    verbs:
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    name: calico-typha
+    ownerReferences:
+    - apiVersion: operator.tigera.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Installation
+      name: default
+      uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+    resourceVersion: "1344"
+    uid: ea86ef26-7549-4f35-9ad1-3870d57acb64
+  rules:
+  - apiGroups:
+    - discovery.k8s.io
+    resources:
+    - endpointslices
+    verbs:
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - nodes
+    - namespaces
+    verbs:
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - endpoints
+    - services
+    verbs:
+    - watch
+    - list
+    - get
+  - apiGroups:
+    - ""
+    resources:
+    - nodes/status
+    verbs:
+    - patch
+    - update
+  - apiGroups:
+    - networking.k8s.io
+    resources:
+    - networkpolicies
+    verbs:
+    - watch
+    - list
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - namespaces
+    - serviceaccounts
+    verbs:
+    - watch
+    - list
+  - apiGroups:
+    - ""
+    resources:
+    - pods/status
+    verbs:
+    - patch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - bgpconfigurations
+    - bgppeers
+    - bgpfilters
+    - blockaffinities
+    - caliconodestatuses
+    - clusterinformations
+    - felixconfigurations
+    - globalnetworkpolicies
+    - globalnetworksets
+    - hostendpoints
+    - ipamblocks
+    - ippools
+    - ipreservations
+    - networkpolicies
+    - networksets
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - globalbgpconfigs
+    - globalfelixconfigs
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - clusterinformations
+    - felixconfigurations
+    - ippools
+    verbs:
+    - create
+    - update
+  - apiGroups:
+    - ""
+    resources:
+    - nodes
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - blockaffinities
+    - ipamblocks
+    - ipamhandles
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - ipamconfigs
+    verbs:
+    - get
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - blockaffinities
+    verbs:
+    - watch
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: "2026-01-10T22:51:42Z"
+    name: tigera-operator
+    resourceVersion: "1145"
+    uid: 065dbc0b-321d-4666-9193-3cc573f65ffd
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - namespaces
+    - pods
+    - podtemplates
+    - services
+    - endpoints
+    - events
+    - configmaps
+    - secrets
+    - serviceaccounts
+    verbs:
+    - create
+    - get
+    - list
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - resourcequotas
+    verbs:
+    - list
+    - get
+    - watch
+  - apiGroups:
+    - ""
+    resourceNames:
+    - calico-critical-pods
+    - tigera-critical-pods
+    resources:
+    - resourcequotas
+    verbs:
+    - create
+    - get
+    - list
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - nodes
+    verbs:
+    - get
+    - patch
+    - list
+    - watch
+  - apiGroups:
+    - rbac.authorization.k8s.io
+    resources:
+    - clusterroles
+    - clusterrolebindings
+    - rolebindings
+    - roles
+    verbs:
+    - create
+    - get
+    - list
+    - update
+    - delete
+    - watch
+    - bind
+    - escalate
+  - apiGroups:
+    - apps
+    resources:
+    - deployments
+    - daemonsets
+    - statefulsets
+    verbs:
+    - create
+    - get
+    - list
+    - patch
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - apps
+    resourceNames:
+    - tigera-operator
+    resources:
+    - deployments/finalizers
+    verbs:
+    - update
+  - apiGroups:
+    - operator.tigera.io
+    resources:
+    - apiservers/finalizers
+    - installations
+    - installations/status
+    - installations/finalizers
+    - tigerastatuses
+    - tigerastatuses/status
+    - tigerastatuses/finalizers
+    - apiservers
+    - apiservers/status
+    - imagesets
+    verbs:
+    - get
+    - list
+    - update
+    - patch
+    - watch
+  - apiGroups:
+    - operator.tigera.io
+    resources:
+    - tigerastatuses
+    verbs:
+    - create
+    - delete
+  - apiGroups:
+    - operator.tigera.io
+    resources:
+    - installations
+    - apiservers
+    verbs:
+    - delete
+  - apiGroups:
+    - networking.k8s.io
+    resources:
+    - networkpolicies
+    verbs:
+    - create
+    - update
+    - delete
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - felixconfigurations
+    - ippools
+    verbs:
+    - create
+    - patch
+    - list
+    - get
+    - watch
+  - apiGroups:
+    - crd.projectcalico.org
+    resources:
+    - kubecontrollersconfigurations
+    - bgpconfigurations
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - projectcalico.org
+    resources:
+    - ippools
+    verbs:
+    - create
+    - update
+    - delete
+    - patch
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - projectcalico.org
+    resources:
+    - ipamconfigurations
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - scheduling.k8s.io
+    resources:
+    - priorityclasses
+    verbs:
+    - create
+    - get
+    - list
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - policy
+    resources:
+    - poddisruptionbudgets
+    verbs:
+    - create
+    - get
+    - list
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - apiregistration.k8s.io
+    resources:
+    - apiservices
+    verbs:
+    - list
+    - watch
+    - create
+    - update
+  - apiGroups:
+    - coordination.k8s.io
+    resources:
+    - leases
+    verbs:
+    - create
+    - get
+    - list
+    - update
+    - delete
+    - watch
+  - apiGroups:
+    - storage.k8s.io
+    resources:
+    - csidrivers
+    verbs:
+    - list
+    - watch
+    - update
+    - get
+    - create
+    - delete
+  - apiGroups:
+    - certificates.k8s.io
+    resources:
+    - certificatesigningrequests
+    verbs:
+    - list
+    - watch
+  - apiGroups:
+    - policy
+    resourceNames:
+    - tigera-operator
+    resources:
+    - podsecuritypolicies
+    verbs:
+    - use
+  - apiGroups:
+    - policy
+    resources:
+    - podsecuritypolicies
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - delete
+kind: List
+metadata:
+  resourceVersion: ""
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: "2026-01-10T22:53:01Z"
+  finalizers:
+  - tigera.io/cni-protector
+  name: calico-cni-plugin
+  ownerReferences:
+  - apiVersion: operator.tigera.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Installation
+    name: default
+    uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+  resourceVersion: "1370"
+  uid: 608f22f7-3a0f-4acd-9ac4-9fe06c34bce1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: calico-cni-plugin
+subjects:
+- kind: ServiceAccount
+  name: calico-cni-plugin
+  namespace: calico-system
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: "2026-01-10T22:53:01Z"
+  name: calico-kube-controllers
+  ownerReferences:
+  - apiVersion: operator.tigera.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Installation
+    name: default
+    uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+  resourceVersion: "1398"
+  uid: 85d238e9-3b42-4327-bd66-55e8ca42cdba
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: calico-kube-controllers
+subjects:
+- kind: ServiceAccount
+  name: calico-kube-controllers
+  namespace: calico-system
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: "2026-01-10T22:53:01Z"
+  finalizers:
+  - tigera.io/cni-protector
+  name: calico-node
+  ownerReferences:
+  - apiVersion: operator.tigera.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Installation
+    name: default
+    uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+  resourceVersion: "1361"
+  uid: 24211b69-af8f-407a-8055-88cc21bdb018
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: calico-node
+subjects:
+- kind: ServiceAccount
+  name: calico-node
+  namespace: calico-system
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: "2026-01-10T22:53:01Z"
+  name: calico-typha
+  ownerReferences:
+  - apiVersion: operator.tigera.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Installation
+    name: default
+    uid: 5ee0d8a6-d85e-49f6-8be7-b0e3c2419dcf
+  resourceVersion: "1345"
+  uid: 4ca0fcd4-b80c-477c-85c0-de0a6b5e9320
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: calico-typha
+subjects:
+- kind: ServiceAccount
+  name: calico-typha
+  namespace: calico-system
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: "2026-01-10T22:51:42Z"
+  name: tigera-operator
+  resourceVersion: "1146"
+  uid: 847e7432-6617-4e74-a2f7-964233633190
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tigera-operator
+subjects:
+- kind: ServiceAccount
+  name: tigera-operator
+  namespace: tigera-operator

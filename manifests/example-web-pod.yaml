@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+  labels:
+    service: example-pod
+spec:
+  containers:
+  - name: frontend
+    image: python
+    command:
+    - "python"
+    - "-m"
+    - "http.server"
+    - "8080"
+    ports:
+    - containerPort: 8080

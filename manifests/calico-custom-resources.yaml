@@ -1,0 +1,97 @@
+apiVersion: v1
+items:
+- apiVersion: crd.projectcalico.org/v1
+  kind: IPPool
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: tigera-operator
+    name: default-ipv4-ippool
+    resourceVersion: "1331"
+    uid: d60b4e98-8f68-4c6a-80b1-c19d2adf2f51
+  spec:
+    allowedUses:
+    - Workload
+    - Tunnel
+    blockSize: 26
+    cidr: 10.244.0.0/16
+    ipipMode: Never
+    natOutgoing: true
+    nodeSelector: all()
+    vxlanMode: CrossSubnet
+- apiVersion: crd.projectcalico.org/v1
+  kind: FelixConfiguration
+  metadata:
+    annotations:
+      operator.tigera.io/bpfEnabled: "false"
+      projectcalico.org/metadata: '{"generation":2,"creationTimestamp":"2026-01-10T22:53:01Z","annotations":{"operator.tigera.io/bpfEnabled":"false"},"managedFields":[{"manager":"operator","operation":"Update","apiVersion":"crd.projectcalico.org/v1","time":"2026-01-10T22:53:01Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:operator.tigera.io/bpfEnabled":{}}},"f:spec":{".":{},"f:bpfEnabled":{},"f:bpfLogLevel":{},"f:healthPort":{},"f:vxlanVNI":{}}}}]}'
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 3
+    name: default
+    resourceVersion: "1556"
+    uid: f273f8a7-302c-4b45-9fe3-bd74816c95a2
+  spec:
+    bpfConnectTimeLoadBalancing: TCP
+    bpfEnabled: false
+    bpfHostNetworkedNATWithoutCTLB: Enabled
+    bpfLogLevel: ""
+    floatingIPs: Disabled
+    healthPort: 9099
+    logSeverityScreen: Info
+    reportingInterval: 0s
+    vxlanVNI: 4096
+kind: List
+metadata:
+  resourceVersion: ""
+apiVersion: v1
+items:
+- apiVersion: crd.projectcalico.org/v1
+  kind: IPPool
+  metadata:
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: tigera-operator
+    name: default-ipv4-ippool
+    resourceVersion: "1331"
+    uid: d60b4e98-8f68-4c6a-80b1-c19d2adf2f51
+  spec:
+    allowedUses:
+    - Workload
+    - Tunnel
+    blockSize: 26
+    cidr: 10.244.0.0/16
+    ipipMode: Never
+    natOutgoing: true
+    nodeSelector: all()
+    vxlanMode: CrossSubnet
+kind: List
+metadata:
+  resourceVersion: ""
+apiVersion: v1
+items:
+- apiVersion: crd.projectcalico.org/v1
+  kind: FelixConfiguration
+  metadata:
+    annotations:
+      operator.tigera.io/bpfEnabled: "false"
+      projectcalico.org/metadata: '{"generation":2,"creationTimestamp":"2026-01-10T22:53:01Z","annotations":{"operator.tigera.io/bpfEnabled":"false"},"managedFields":[{"manager":"operator","operation":"Update","apiVersion":"crd.projectcalico.org/v1","time":"2026-01-10T22:53:01Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:operator.tigera.io/bpfEnabled":{}}},"f:spec":{".":{},"f:bpfEnabled":{},"f:bpfLogLevel":{},"f:healthPort":{},"f:vxlanVNI":{}}}}]}'
+    creationTimestamp: "2026-01-10T22:53:01Z"
+    generation: 3
+    name: default
+    resourceVersion: "1556"
+    uid: f273f8a7-302c-4b45-9fe3-bd74816c95a2
+  spec:
+    bpfConnectTimeLoadBalancing: TCP
+    bpfEnabled: false
+    bpfHostNetworkedNATWithoutCTLB: Enabled
+    bpfLogLevel: ""
+    floatingIPs: Disabled
+    healthPort: 9099
+    logSeverityScreen: Info
+    reportingInterval: 0s
+    vxlanVNI: 4096
+kind: List
+metadata:
+  resourceVersion: ""
